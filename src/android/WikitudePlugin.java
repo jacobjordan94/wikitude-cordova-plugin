@@ -333,12 +333,14 @@ public class WikitudePlugin extends CordovaPlugin implements ArchitectUrlListene
 		/* set visibility to "visible", return error if view is null */
         if ( WikitudePlugin.ACTION_SHOW.equals( action ) ) {
 
+            //Using Multiple Camera Plugins: temporarily reload page on show until we are able to pass required args
+            loadArchitectWorld();
             this.cordova.getActivity().runOnUiThread( new Runnable() {
 
                 @Override
                 public void run() {
                     if ( architectView != null ) {
-                        architectView.setVisibility( View.VISIBLE );
+                        //architectView.setVisibility( View.VISIBLE );
                         callContext.success( action + ": architectView is present" );
                     } else {
                         callContext.error( action + ": architectView is not present" );
@@ -358,7 +360,8 @@ public class WikitudePlugin extends CordovaPlugin implements ArchitectUrlListene
                 @Override
                 public void run() {
                     if ( architectView != null ) {
-                        architectView.setVisibility( View.INVISIBLE );
+                        //Using Multiple Camera Plugins: temporarily reload page on show until we are able to pass required args
+                        //architectView.setVisibility( View.INVISIBLE );
                         callContext.success( action + ": architectView is present" );
                     } else {
                         callContext.error( action + ": architectView is not present" );
