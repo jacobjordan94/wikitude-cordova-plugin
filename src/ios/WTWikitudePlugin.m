@@ -458,6 +458,7 @@ NSString * const kWTWikitudePlugin_localPathPrefix                  = @"WTCordov
                 }
                 self.arViewController.currentArchitectWorldNavigation = [self.arViewController.architectView loadArchitectWorldFromURL:architectWorldURL];
 
+                UIApplication.sharedApplication.statusBarStyle = UIStatusBarStyleLightContent;
                 self.loadArchitectWorldCallbackId = command.callbackId;
                 pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_NO_RESULT];
                 [pluginResult setKeepCallbackAsBool:YES];
