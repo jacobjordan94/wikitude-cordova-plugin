@@ -20,8 +20,7 @@
     
     <engines>
       <engine name="cordova" version=">=3.0.0" />
-      <engine name="cordova-android" version=">=6.3.0"/>
-    </engines>
+    </engines>  
 
     <!-- copy WikitudePlugin wrapper file into www-folder -->
     <js-module src="www/WikitudePlugin.js" name="WikitudePlugin">
@@ -34,11 +33,8 @@
         <!-- declare implementation of WikitudePlugin -->
         <source-file src="src/android/WikitudePlugin.java" target-dir="src/com/wikitude/phonegap" />
 
-        <!-- copy wikitude sdk -->
-        <lib-file src="src/android/wikitudesdk.aar"/>
-
         <!-- copy build extras, necessary for wikitude.aar -->
-        <framework src="src/android/build-extras.gradle" custom="true" type="gradleReference" />
+        <source-file src="src/android/libs/build-extras.gradle" target-dir="." />
 
         <!-- add permissions and requirements -->
         <config-file target="AndroidManifest.xml" parent="/manifest">
@@ -68,6 +64,11 @@
             </activity>
             <meta-data android:name="com.google.ar.core" android:value="optional" />
         </config-file>
+
+
+        <!-- copy wikitude sdk -->
+        <source-file src="src/android/libs/wikitudesdk.aar" target-dir="libs/" />
+
 
         <!-- adds WikitudePlugin in project's config.xml -->
         <config-file target="res/xml/config.xml" parent="/*">

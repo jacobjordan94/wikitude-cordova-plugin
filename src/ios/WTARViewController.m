@@ -48,7 +48,7 @@ NSString * const WTArchitectDebugDelegateMessageKey = @"WTArchitectDebugDelegate
         // Custom initialization
         _startupConfiguration = [[WTArchitectStartupConfiguration alloc] init];
         
-        self.architectView = [[WTArchitectView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        self.architectView = [[WTArchitectView alloc] initWithFrame:[[UIScreen mainScreen] bounds] motionManager:motionManagerOrNil];
         self.architectView.delegate = self;
         self.architectView.debugDelegate = self;
         _startSDKAfterAppResume = YES;
@@ -70,7 +70,7 @@ NSString * const WTArchitectDebugDelegateMessageKey = @"WTArchitectDebugDelegate
 
 - (BOOL)prefersStatusBarHidden
 {
-    return YES;
+    return NO;
 }
 
 - (void)viewDidLoad
@@ -91,12 +91,12 @@ NSString * const WTArchitectDebugDelegateMessageKey = @"WTArchitectDebugDelegate
 
     [self.architectView setShouldRotate:YES toInterfaceOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
 
-
-    UIScreenEdgePanGestureRecognizer *swipeBackRecognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeBack:)];
-    swipeBackRecognizer.edges = UIRectEdgeLeft;
-    swipeBackRecognizer.delegate = self;
+    // Uncomment to enable swipe navigation
+    // UISwipeGestureRecognizer *swipeBackRecognizer = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(didSwipeBack:)];
+    // swipeBackRecognizer.direction = UISwipeGestureRecognizerDirectionRight;
+    // swipeBackRecognizer.delegate = self;
     
-    [self.view addGestureRecognizer:swipeBackRecognizer];
+    // [self.view addGestureRecognizer:swipeBackRecognizer];
 }
 
 - (void)viewWillAppear:(BOOL)animated

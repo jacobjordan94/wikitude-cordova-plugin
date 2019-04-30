@@ -35,7 +35,13 @@
          */
         this.CameraFocusRangeNone = 0;
         this.CameraFocusRangeNear = 1;
-        this.CameraFocusRangeFar  = 2;
+		this.CameraFocusRangeFar  = 2;
+
+		this.PluginStateClosed = 0;
+		this.PluginStateHidden = 1;
+		this.PluginStateOpen = 2;
+
+		this.CurrentPluginState = this.PluginStateClosed;
 	};
 
 
@@ -102,6 +108,8 @@
             cordova.exec(this.onBackButton, this.onWikitudeError, "WikitudePlugin", "setBackButtonCallback", []);
 		}
 
+		this.CurrentPluginState = this.PluginStateOpen;
+
 		// We add an event listener on the resume and pause event of the application life-cycle
 		document.addEventListener("resume", this.onResume, false);
 		document.addEventListener("pause", this.onPause, false);
@@ -114,6 +122,8 @@
 	 */
 	WikitudePlugin.prototype.close = function() {
 
+		this.CurrentPluginState = this.PluginStateClosed;
+
 		document.removeEventListener("pause", this.onPause, false);
 		document.removeEventListener("resume", this.onResume, false);
 		document.removeEventListener("backbutton", this.onBackButton, false);
@@ -125,6 +135,7 @@
 	 *	Use this function to only hide the Wikitude SDK. All location and rendering updates are still active.
 	 */
 	WikitudePlugin.prototype.hide = function() {
+		this.CurrentPluginState = this.PluginStateHidden;
 		cordova.exec(this.onWikitudeOK, this.onWikitudeError, "WikitudePlugin", "hide", [""]);
 	};
 
@@ -132,6 +143,7 @@
 	 *	Use this function to show the Wikitude SDK again if it was hidden before.
 	 */
 	WikitudePlugin.prototype.show = function() {
+		this.CurrentPluginState = this.PluginStateOpen;
 		cordova.exec(this.onWikitudeOK, this.onWikitudeError, "WikitudePlugin", "show", [""]);
 	};
 
@@ -172,7 +184,7 @@
 	};
 
 	/**
-	 *  Use this function to inject a location into the Wikitude SDK.
+	 *  Use this function to inject a location into the W.enikitude SDK.
 	 *
 	 *  @param latitude The latitude which should be simulated
 	 *  @param longitude The longitude which should be simulated
@@ -189,11 +201,11 @@
      *  @param {function(ur)}  successCallback  function which is called after the screen capturing succeeded.
      *  @param {function(err)} errorCallback    function which is called after capturing the screen has failed.
 	 *  @param includeWebView Indicates if the ARchitect web view should be included in the generated screenshot or not.
-	 *  @param imagePathInBundleorNullForPhotoLibrary If a file path or file name is given, the generated screenshot will be saved in the application bundle. Passing null will save the photo in the device photo library.
+	 *  @param imagePathInBundleorNullFOrPhotoLibraryTrueForBase64 If a file path or file name is given, the generated screenshot will be saved in the application bundle. Passing null will save the photo in the device photo library.
 	 */
-	WikitudePlugin.prototype.captureScreen = function(successCallback, errorCallback, includeWebView, imagePathInBundleOrNullForPhotoLibrary)
+	WikitudePlugin.prototype.captureScreen = function(successCallback, errorCallback, includeWebView, imagePathInBundleorNullFOrPhotoLibraryTrueForBase64)
     {
-		cordova.exec(successCallback, errorCallback, "WikitudePlugin", "captureScreen", [includeWebView, imagePathInBundleOrNullForPhotoLibrary]);
+		cordova.exec(successCallback, errorCallback, "WikitudePlugin", "captureScreen", [includeWebView, imagePathInBundleorNullFOrPhotoLibraryTrueForBase64]);
 	};
 
 	/**
