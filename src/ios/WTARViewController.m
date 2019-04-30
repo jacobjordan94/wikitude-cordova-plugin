@@ -47,8 +47,8 @@ NSString * const WTArchitectDebugDelegateMessageKey = @"WTArchitectDebugDelegate
     if (self) {
         // Custom initialization
         _startupConfiguration = [[WTArchitectStartupConfiguration alloc] init];
-        
-        self.architectView = [[WTArchitectView alloc] initWithFrame:[[UIScreen mainScreen] bounds] motionManager:motionManagerOrNil];
+
+        self.architectView = [[WTArchitectView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         self.architectView.delegate = self;
         self.architectView.debugDelegate = self;
         _startSDKAfterAppResume = YES;
